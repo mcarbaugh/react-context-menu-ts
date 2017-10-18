@@ -1,0 +1,45 @@
+
+.menu-wrapper {
+    cursor: default;
+    width: auto;
+    position: relative;
+}
+
+.context-menu {
+    position: absolute;
+    white-space: nowrap;
+    display: block;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5),
+                3px 3px 3px rgba(0, 0, 0, 0.2),
+                5px 5px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-items-container {
+    width: auto;
+    height: auto;
+    position: relative;
+}
+
+.context-menu-item, .context-menu-item-content {
+    position: relative;
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 4px;
+}
+
+
+.context-menu-item-content {
+    padding: 5px 10px;   
+}
+
+.context-menu-item:hover {
+    background-color: #eee;
+    cursor: default;
+}
