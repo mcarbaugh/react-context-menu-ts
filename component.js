@@ -2,6 +2,17 @@ import React from 'react';
 import { contextMenus } from './helpers.js';
 import './component.css';
 
+const CLASS_MENU_WRAPPER = "menu-wrapper";
+const CLASS_CONTEXT_MENU = "context-menu";
+const CLASS_MENU_ITEMS_CONTAINER = "menu-items-container";
+const CLASS_MENU_ITEM = "context-menu-item";
+const CLASS_MENU_ITEM_CONTENT = "context-menu-item-content";
+
+let mousePosition = {
+    x: 0,
+    y: 0
+}
+
 export class ContextMenu extends React.Component {
     constructor(props) {
         super(props);
@@ -13,19 +24,19 @@ export class ContextMenu extends React.Component {
     }
 
     renderChildren() {
-
         // handle zero children
         if(!this.props.children)
             return({})
-        
+
         try {
             let index = 0;
-            return this.props.children.map((child) => {
+            const children = React.Children.toArray(this.props.children);
+            return children.map((child) => {
                 index++;
                 let key = "context-menu-" + index;
                 return (
                     <div
-                         className="context-menu-item"
+                         className={CLASS_MENU_ITEM}
                          key={key} 
                          tabIndex="-1"
                     >
@@ -40,24 +51,27 @@ export class ContextMenu extends React.Component {
     }
 
     render() {
-        const { children, 
-                className,
+        const { children,
                 id
             } = this.props;
         
         if (!this.state.isVisible)
             return <div/>
             
+        let top = mousePosition.y;
+        let left = mousePosition.x;
+        
         return(
             <div id={id}
                  ref={id}
-                 className={className} 
+                 className={CLASS_CONTEXT_MENU} 
                  role="menu" 
                  tabIndex="-1"
+                 style={{position:"absolute", left, top}}
             >
-                <div className="menu-items-container" tabIndex="-1">
+                <nav className={CLASS_MENU_ITEMS_CONTAINER} tabIndex="-1">
                     {this.renderChildren(children)}
-                </div>
+                </nav>
             </div>
         )
     }
@@ -69,7 +83,7 @@ export class MenuItem extends React.Component {
         } = this.props;
 
         return(
-            <div className="context-menu-item-content" 
+            <div className={CLASS_MENU_ITEM_CONTENT}
                  id={id} role="menuitem" 
                  tabIndex="-1" 
                  onClick={this.handleMenuItemClick.bind(this)}
@@ -98,12 +112,24 @@ export class MenuWrapper extends React.Component {
         const {
             id
         } = this.props;
-
+        
         return(
-            <div id={id} onContextMenu={() => this.handleRightClick(id)}>
+            <div 
+                id={id} 
+                className={CLASS_MENU_WRAPPER}
+                onContextMenu={() => this.handleRightClick(id)} 
+                onMouseMove={this.handleMouseMove.bind(this)}
+            >
                 {this.props.children}
             </div>
         );
+    }
+
+    handleMouseMove(event) {
+        mousePosition = {
+            x: event.clientX,
+            y: event.clientY
+        };
     }
 
     // open the correct <ContextMenu> when the <MenuWrapper> component is right-clicked
