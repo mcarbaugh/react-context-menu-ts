@@ -26,17 +26,12 @@
     position: relative;
 }
 
-.context-menu-item, .context-menu-item-content {
+.context-menu-item {
     position: relative;
     width: auto;
-    padding: 0;
+    padding: 5px, 10px;
     background-color: transparent;
     border-radius: 4px;
-}
-
-
-.context-menu-item-content {
-    padding: 5px 10px;   
 }
 
 .context-menu-item:hover {
