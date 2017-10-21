@@ -1,10 +1,11 @@
 import * as React from "react";
+import { MenuItem } from "./MenuItem";
 import { ContextMenuHelper } from "./ContextMenuHelper";
-import { IMenuItem, IMenuProps, IMenuState } from "./Interfaces";
+import { IMenuItem, IMenuProps, IMenuState, IContextMenu } from "./Interfaces";
 import * as Constants from "./Constants";
 import "./ContextMenu.css";
 
-export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> {
+export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> implements IContextMenu {
     public constructor(props: IMenuProps) {
         super(props);
         this.state = {
@@ -12,6 +13,16 @@ export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> {
             top: 0,
             left: 0,
         };
+    }
+
+    public componentDidMount() {
+        const menuHelper = ContextMenuHelper.getInstance();
+        menuHelper.add(this);
+    }
+
+    public componentWillUnmount() {
+        const menuHelper = ContextMenuHelper.getInstance();
+        menuHelper.remove(this);
     }
 
     public render() {
@@ -24,43 +35,44 @@ export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> {
         const left = this.state.left;
             
         if (!this.state.isVisible) {
-            return <div/>
+            return <div id={id}/>;
         }        
-        
-        return(
+
+        return (
             <div 
                 id={id}
                 ref={id}
                 className={Constants.CLASS_CONTEXT_MENU} 
                 role="menu"
-                style={{position:"absolute", left, top}}
+                style={{position: "absolute", top, left}}
             >
                 <nav className={Constants.CLASS_MENU_ITEMS_CONTAINER}>
                     {this._renderItems(items)}
                 </nav>
             </div>
-        )
+        );
     }
 
     private _renderItems(items?: IMenuItem[]) {      
         try {
-            if(!items) {
-                return({})
+            if (!items) {
+                return({});
             }
-
-            return items.map((item, i) => {
+            
+            const menuItems = items as MenuItem[];
+            return menuItems.map((item, i) => {
                 return (
                     <div
-                         className={Constants.CLASS_MENU_ITEM}
-                         key={"context-menu-" + i} 
+                        className={Constants.CLASS_MENU_ITEM}
+                        key={"context-menu-" + i}
+                        onClick={item.action}
                     >
-                         {item}
+                         {item.label}
                     </div>
-                )
+                );
             });
-        }
-        catch(error) {
-            return({})
+        } catch (error) {
+            return ({});
         }
     }
 }

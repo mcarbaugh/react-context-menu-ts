@@ -1,6 +1,6 @@
 
 export interface IMenuProps {
-    id?: string;
+    id: string;
     items?: IMenuItem[];
 }
 
@@ -12,9 +12,13 @@ export interface IMenuState {
 
 export interface IMenuItem {
     label: string;
-    action: () => void;
+    action?: () => void;
 }
 
 export interface IContextMenu extends React.PureComponent{
-    id: string;
+    id?: string;
+}
+
+export interface IContextMenuEnabled extends React.PureComponent {
+    handleRightClick: (event: React.MouseEvent<HTMLElement>) => void;
 }

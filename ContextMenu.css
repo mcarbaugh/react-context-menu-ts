@@ -29,7 +29,7 @@
 .context-menu-item {
     position: relative;
     width: auto;
-    padding: 5px, 10px;
+    padding: 10px 15px;
     background-color: transparent;
     border-radius: 4px;
 }
