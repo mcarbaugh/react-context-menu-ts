@@ -1,22 +1,11 @@
 import * as React from "react";
 import { ContextMenuHelper } from "./ContextMenuHelper";
-import { IMenuItem } from "./IMenuItem";
+import { IMenuItem, IMenuProps, IMenuState } from "./Interfaces";
 import * as Constants from "./Constants";
 import "./ContextMenu.css";
 
-interface IProps {
-    id?: string;
-    items?: IMenuItem[];
-}
-
-interface IState {
-    isVisible: boolean;
-    top: number;
-    left: number;
-}
-
-export class ContextMenu extends React.PureComponent <IProps, IState> {
-    constructor(props: IProps) {
+export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> {
+    public constructor(props: IMenuProps) {
         super(props);
         this.state = {
             isVisible: false,

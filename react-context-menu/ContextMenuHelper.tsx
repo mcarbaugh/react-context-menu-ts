@@ -1,10 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as Constants from "./Constants";
-
-export interface IContextMenu extends React.PureComponent{
-    handleRightClick: () => void;
-}
+import { IContextMenu, IMenuState } from "./Interfaces";
 
 export class ContextMenuHelper {
     private static _instance: ContextMenuHelper;
@@ -13,6 +10,7 @@ export class ContextMenuHelper {
     private constructor() {
         this._menus = [];
         window.onclick = this._handleWindowClick.bind(this);
+        window.oncontextmenu = this._preventDefaultContextMenu;
     }
 
     public getInstance() {
@@ -51,7 +49,27 @@ export class ContextMenuHelper {
         }
     }
 
-    private _handleWindowClick() {
+    public showMenuById(id: string, top: number, left: number) {
+        const newState: IMenuState = {
+            isVisible: true,
+            top: top,
+            left: left
+        };
+
+        for(let menu of this._menus) {
+            if(menu.id === id) {
+                  menu.setState(newState);
+            } else {
+                menu.setState(Constants.DEFAULT_MENU_STATE);
+            }
+        }
+    }
+
+    private _preventDefaultContextMenu(event: PointerEvent) {
+        event.preventDefault();
+    }
+
+    private _handleWindowClick(event: PointerEvent) {
         for(let menu of this._menus) {
             menu.setState(Constants.DEFAULT_MENU_STATE);
         }
