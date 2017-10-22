@@ -1,11 +1,10 @@
-import * as React from "react";
-import { MenuItem } from "./MenuItem";
-import { ContextMenuHelper } from "./ContextMenuHelper";
-import { IMenuItem, IMenuProps, IMenuState, IContextMenu } from "./Interfaces";
-import * as Constants from "./Constants";
-import "./ContextMenu.css";
+import * as React from 'react';
+import { ContextMenuHelper } from './helper';
+import { IMenuItem, IMenuProps, IMenuState, IContextMenu } from './interfaces';
+import * as Constants from './constants';
+import './component.css';
 
-export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> implements IContextMenu {
+export class Component extends React.PureComponent <IMenuProps, IMenuState> implements IContextMenu {
     public constructor(props: IMenuProps) {
         super(props);
         this.state = {
@@ -44,7 +43,7 @@ export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> im
                 ref={id}
                 className={Constants.CLASS_CONTEXT_MENU} 
                 role="menu"
-                style={{position: "absolute", top, left}}
+                style={{position: 'absolute', top, left}}
             >
                 <nav className={Constants.CLASS_MENU_ITEMS_CONTAINER}>
                     {this._renderItems(items)}
@@ -58,14 +57,23 @@ export class ContextMenu extends React.PureComponent <IMenuProps, IMenuState> im
             if (!items) {
                 return({});
             }
-            
-            const menuItems = items as MenuItem[];
+
+            const menuItems = items as IMenuItem[];
             return menuItems.map((item, i) => {
+
+                const invokeAction = () => {
+                    if (item.args && item.action) {
+                        item.action(item.args);
+                    } else if (item.action) {
+                        item.action();
+                    }
+                };
+
                 return (
                     <div
                         className={Constants.CLASS_MENU_ITEM}
-                        key={"context-menu-" + i}
-                        onClick={item.action}
+                        key={'context-menu-' + i}
+                        onClick={invokeAction}
                     >
                          {item.label}
                     </div>

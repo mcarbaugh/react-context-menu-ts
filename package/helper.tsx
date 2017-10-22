@@ -1,6 +1,6 @@
-import * as Constants from "./Constants";
-import { ContextMenu } from "./ContextMenu";
-import { IContextMenu, IMenuState } from "./Interfaces";
+import * as Constants from './constants';
+import { Component } from './component';
+import { IContextMenu, IMenuState } from './interfaces';
 
 export class ContextMenuHelper {
     
@@ -24,7 +24,7 @@ export class ContextMenuHelper {
             }
 
         } catch (error) {
-            console.log(error);
+            throw (error);
         }
     }
 
@@ -38,7 +38,7 @@ export class ContextMenuHelper {
             }
             
         } catch (error) {
-            console.log(error);
+            throw (error);
         }
     }
 
@@ -47,9 +47,9 @@ export class ContextMenuHelper {
             isVisible: true,
             top: newTop,
             left: newLeft,
-        }
+        };
 
-        const menus = this._menus as ContextMenu[];
+        const menus = this._menus as Component[];
         for (let menu of menus) {
             if (menu.props.id === id) {
                 menu.setState(newState);

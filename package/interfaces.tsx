@@ -12,13 +12,15 @@ export interface IMenuState {
 
 export interface IMenuItem {
     label: string;
-    action?: () => void;
+    action?: {(args?: null | number | string): void};
+    args?: string;
 }
 
 export interface IContextMenu extends React.PureComponent{
     id?: string;
 }
 
-export interface IContextMenuEnabled extends React.PureComponent {
-    handleRightClick: (event: React.MouseEvent<HTMLElement>) => void;
+export interface IContextMenuTrigger extends React.PureComponent {
+    id?: string;
+    showContextMenu?: (event: React.MouseEvent<HTMLElement>) => void;
 }
