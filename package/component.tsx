@@ -34,7 +34,10 @@ export class Component extends React.PureComponent <IMenuProps, IMenuState> impl
         const left = this.state.left;
             
         if (!this.state.isVisible) {
-            return <div id={id}/>;
+            return <div 
+                        id={id}
+                        ref={id}        
+                    />;
         }        
 
         return (
@@ -71,6 +74,7 @@ export class Component extends React.PureComponent <IMenuProps, IMenuState> impl
 
                 return (
                     <div
+                        role="menuitem"
                         className={Constants.CLASS_MENU_ITEM}
                         key={'context-menu-' + i}
                         onClick={invokeAction}
