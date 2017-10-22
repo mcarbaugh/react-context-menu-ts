@@ -2,7 +2,8 @@
 export const DEFAULT_MENU_STATE = {
     isVisible: false,
     top: 0,
-    left: 0
+    left: 0,
+    args: undefined
 };
 
 export const CLASS_MENU_WRAPPER = 'menu-wrapper';

@@ -42,11 +42,12 @@ export class ContextMenuHelper {
         }
     }
 
-    public showMenuById(id: string, newTop: number, newLeft: number) {
+    public showMenuById(id: string, newArgs: null | undefined | number | string, newTop: number, newLeft: number) {
         const newState: IMenuState = {
             isVisible: true,
             top: newTop,
             left: newLeft,
+            args: newArgs
         };
 
         const menus = this._menus as Component[];

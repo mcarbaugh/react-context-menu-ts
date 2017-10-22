@@ -5,6 +5,7 @@ import { ContextMenuHelper } from './helper';
 
 interface Props {
     id: string;
+    args?: null | undefined | number | string;
 }
 
 interface State {
@@ -35,6 +36,6 @@ export class Trigger extends React.PureComponent <Props, State> implements ICont
 
     public showContextMenu(event: React.MouseEvent<HTMLElement>) {
         const menuHelper = ContextMenuHelper.getInstance();
-        menuHelper.showMenuById(this.props.id, event.clientY, event.clientX);
+        menuHelper.showMenuById(this.props.id, this.props.args, event.clientY, event.clientX);
     }
 }

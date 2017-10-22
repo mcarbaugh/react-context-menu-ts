@@ -12,6 +12,8 @@ export class Component extends React.PureComponent <IMenuProps, IMenuState> impl
             top: 0,
             left: 0,
         };
+
+        this._renderItems = this._renderItems.bind(this);
     }
 
     public componentDidMount() {
@@ -65,8 +67,8 @@ export class Component extends React.PureComponent <IMenuProps, IMenuState> impl
             return menuItems.map((item, i) => {
 
                 const invokeAction = () => {
-                    if (item.args && item.action) {
-                        item.action(item.args);
+                    if (this.state.args && item.action) {
+                        item.action(this.state.args);
                     } else if (item.action) {
                         item.action();
                     }
