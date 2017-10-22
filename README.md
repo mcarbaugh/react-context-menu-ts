@@ -14,7 +14,7 @@ private saySomething(message: string) {
 <br></br>
 #### 3.) Add markup to the the render() method.
 ```javascript
-<ContextMenu.Trigger id="ContextMenu">
+<ContextMenu.Trigger id="ContextMenu", args: 'Hello there!'>
     <div>
       <h1>Hello World</div>
     </div>
@@ -25,7 +25,7 @@ private saySomething(message: string) {
         {label: 'Increment', action: incrementCounter},
         {label: 'Decrement', action: decrementCounter},
         {label: 'Reset', action: resetCounter},
-        {label: 'Say Something', action: this.saySomething, args: 'Hello there!'},
+        {label: 'Say Something', action: this.saySomething},
     ]}
 />
 ```
