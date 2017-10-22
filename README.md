@@ -12,7 +12,7 @@ private saySomething(message: string) {
 }
 ```
 <br></br>
-#### 3.) Add markup the the render() method.
+#### 3.) Add markup to the the render() method.
 ```javascript
 <ContextMenu.Trigger id="ContextMenu">
     <div>
